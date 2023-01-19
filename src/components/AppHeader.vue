@@ -17,8 +17,10 @@ export default {
 <template>
 
   <header>
-    <input v-model="store.query" class="form-control" type="text" placeholder="Cerca">
-    <button @click="$emit('clickSearch')" class="btn btn-light">Cerca</button>
+    <input v-model="store.query" class="form-control" type="text" placeholder="Cerca i tuou Film, Serie o attori preferiti">
+    <button
+      @click="$emit('clickSearch')"
+      class="btn btn-light">Cerca</button>
   </header>
   
 </template>

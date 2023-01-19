@@ -26,11 +26,12 @@ export default {
           api_key: store.api_key,
           query: store.query,
           page: store.page,
-          language: store.language
+          language: store.language,
+          include_adult: store.include_adult
         }
       })
       .then(result => {
-        store.movieList = result.data.results;
+        store.movieTvList = result.data.results;
       })
       .catch(error => {
       })

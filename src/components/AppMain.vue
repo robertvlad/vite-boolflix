@@ -21,11 +21,31 @@ export default {
 
 <template>
 
-  <main class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6">
-    
-    <CardBox v-for="movie in store.movieList" :key="movie.id"
-      :movie="movie"/>
-   
+  <main>  
+    <h2>FILM</h2>
+    <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6">
+
+      <CardBox
+        v-show="movie.media_type === 'movie'" 
+        v-for="movie in store.movieTvList" :key="movie.id"
+        :title="movie.title"
+        :original_title="movie.original_title"
+        :original_language="movie.original_language"
+        :vote_average="movie.vote_average"/>
+
+    </div>    
+    <h2>SERIE TV</h2>
+    <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6">
+
+      <CardBox
+        v-show="tvShow.media_type === 'tv'" 
+        v-for="tvShow in store.movieTvList" :key="tvShow.id"
+        :title="tvShow.name"
+        :original_title="tvShow.original_name"
+        :original_language="tvShow.original_language"
+        :vote_average="tvShow.vote_average"/>
+
+    </div>   
   </main>
   
 </template>

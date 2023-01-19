@@ -2,11 +2,14 @@ import {reactive} from 'vue';
 
 export const store = reactive({
 
-  apiUrl: 'https://api.themoviedb.org/3/search/movie',
+  apiUrl: 'https://api.themoviedb.org/3/search/multi',
+  apiUrlMovieTrend: 'https://api.themoviedb.org/3/trending/movie/week',
+  apiUrlTvTrend: 'https://api.themoviedb.org/3/trending/tv/week',
   api_key: '13bf53bf9461d4c0dfd2b6ae837171ea',
-  query: 'harry potter',
+  query: '',
   page: '',
   language: 'it-IT',
-  movieList: []
+  include_adult: false,
+  movieTvList: []
 
 });

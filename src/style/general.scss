@@ -14,31 +14,30 @@
 
 @import 'node_modules/flag-icons/css/flag-icons.min.css';
 
-
-header {
-  background-color: $dark-color;
+body{
+  font-family: $main-font;
+  background-image: linear-gradient(
+    $dark-color ,
+    $primary-color 8%
+  );
 }
 
-main, footer {
-  background-color: $primary-color;
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
-.f1 {
-  font-family: $primary-font;
+ul {
+  list-style: none;
 }
 
-.f2 {
-  font-family: $secondary-font;
+a {
+  text-decoration: none;
 }
 
-.f2.w300 {
-  font-weight: 300;
-}
-
-.f2.w400 {
-  font-weight: 400;
-}
-
-.f2.w700 {
-  font-weight: 700;
+.container-custom {
+  width:85%;
+  margin: 0 auto;
 }

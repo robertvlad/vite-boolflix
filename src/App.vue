@@ -3,14 +3,16 @@
 import {store} from './data/store';
 import axios from 'axios';
 import AppHeader from './components/AppHeader.vue';
-import AppMain from './components/AppMain.vue'
+import AppMain from './components/AppMain.vue';
+import AppFooter from './components/AppFooter.vue';
 
 export default {
   name: 'App',
 
   components: {
     AppHeader,
-    AppMain
+    AppMain,
+    AppFooter
   },
 
   data(){
@@ -20,26 +22,49 @@ export default {
   },
 
   methods: {
-    getApi(){
-      axios.get(store.apiUrl, {
-        params:{
-          api_key: store.api_key,
-          query: store.query,
-          page: store.page,
-          language: store.language,
-          include_adult: store.include_adult
-        }
-      })
+    getApi(type, isPopular){
+
+      let apiUrl;
+      
+      if (isPopular && type === 'movie') {
+        apiUrl = store.apiUrlMovieTrend;
+      }
+      else if (isPopular && type === 'tv') {
+        apiUrl = store.apiUrlTvTrend;
+      } 
+      else {
+        apiUrl = store.apiUrl + type;
+      }  
+      
+      axios.get(apiUrl , { params: store.apiParams })
       .then(result => {
-        store.movieTvList = result.data.results;
+        store[type] = result.data.results;
       })
       .catch(error => {
       })
-    }
+    },
+
+    startSearch(isPopular = false) {
+      store.movie = [];
+      store.tv = [];
+
+      if (store.type === '') {
+        this.getApi('movie', isPopular);
+        this.getApi('tv', isPopular);
+      } 
+      else {
+        this.getApi(store.type);
+      }
+    },
+
+    getSearchParams() {
+      if(store.type === '') this.startSearch(true);
+      this.startSearch ();
+    },
   },
 
   mounted(){
-    this.getApi();
+    this.startSearch(true);
   }
 }
 
@@ -47,13 +72,16 @@ export default {
 
 <template>
 
-  <AppHeader @clickSearch="getApi()"/>
-  <AppMain/>
+  <AppHeader @search="getSearchParams()"/>  
+  <main>    
+    <AppMain v-if="store.movie.length" title="Film" type="movie"/>
+    <AppMain v-if="store.tv.length" title="Serie Tv" type="tv"/>
+  </main>
+  <AppFooter/>
   
 </template>
 
 <style lang="scss">
-
 @use './style/general.scss';
 
 </style>

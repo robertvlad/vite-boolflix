@@ -1,19 +1,27 @@
 <script>
 
 import {store} from '../data/store';
-import CardBox from './CardBox.vue';
+import MovieCard from './MovieCard.vue';
 
 export default {
   name: 'AppMain',
 
   components: {
-    CardBox
+    MovieCard
+  },
+
+  props: {
+    title: String,
+    type: String
   },
 
   data(){
     return{
       store
     }
+  },
+  methods: {
+
   }
 }
 
@@ -21,37 +29,20 @@ export default {
 
 <template>
 
-  <main>  
-    <h2>FILM</h2>
-    <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6">
-
-      <CardBox
-        v-show="movie.media_type === 'movie'" 
-        v-for="movie in store.movieTvList" :key="movie.id"
-        :poster_path="movie.poster_path"
-        :title="movie.title"
-        :original_title="movie.original_title"
-        :original_language="movie.original_language"
-        :vote_average="movie.vote_average"/>
-
+  <div class="container-custom mb-5">
+    <h5 class="mb-3">{{ title }}</h5>
+    <div class="row row-cols-6">
+      <MovieCard v-for="card in store[type]" :key="card.id" :card="card"/>
     </div>    
-    <h2>SERIE TV</h2>
-    <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6">
-
-      <CardBox
-        v-show="tvShow.media_type === 'tv'" 
-        v-for="tvShow in store.movieTvList" :key="tvShow.id"
-        :poster_path="tvShow.poster_path"
-        :title="tvShow.name"
-        :original_title="tvShow.original_name"
-        :original_language="tvShow.original_language"
-        :vote_average="tvShow.vote_average"/>
-
-    </div>
-  </main>
+  </div>  
   
 </template>
 
 <style lang="scss" scoped>
+@use '../style/partials/vars' as *;
+
+h5 {
+  color: $light-color;
+}
 
 </style>
